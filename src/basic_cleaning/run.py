@@ -29,6 +29,8 @@ def go(args):
     data_frame = data_frame[idx].copy()
     # Convert last_review to datetime
     data_frame['last_review'] = pd.to_datetime(data_frame['last_review'])
+    idx = data_frame['longitude'].between(-74.25, -73.50) & data_frame['latitude'].between(40.5, 41.2)
+    data_frame = data_frame[idx].copy()
     data_frame.to_csv("clean_sample.csv", index=False)
     logger.info(f"Uploading {args.output_artifact} to Weights & Biases")
     artifact = wandb.Artifact(
